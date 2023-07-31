@@ -10,6 +10,13 @@ HELP = """
 /print или /show - напечатать список задач на выбранную дату.
 /delete - удалить выполненную задачу из списка задач."""
 
+reference = """
+Шаблон по правильному написанию команд:
+для команд /print, /show и /completed указывается
+/команда дата (через пробел)
+для команд /add и /delete указывается
+/команда дата задача (через пробел)"""
+
 tasks = dict()
 completed_tasks = dict()
 
@@ -59,9 +66,10 @@ def to_delete(date, task):
     return text
 
 #Действия при получении команды help
-@bot.message_handler(commands=["help"])
+@bot.message_handler(commands=["help", "start"])
 def help(message):
-     bot.send_message(message.chat.id, HELP)
+    bot.send_message(message.chat.id, HELP)
+    bot.send_message(message.chat.id, reference)
 
 #Действия при получении команды add
 @bot.message_handler(commands=["add"])
